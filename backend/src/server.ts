@@ -1,7 +1,8 @@
-import express, { Request, Response, NextFunction } from 'express';
-
+import express, { Request, Response } from 'express';
+import cors from 'cors';
 import dotenv from 'dotenv';
 import routes from './routes';
+import adminRoutes from './adminRoutes';
 import { basicAuthMiddleware } from './auth';
 import { initializeDatabase } from './db';
 
@@ -23,14 +24,14 @@ app.get('/health', (req: Request, res: Response) => {
 // Public API routes (booking, etc.)
 app.use('/api', routes);
 
-// Admin dashboard routes – protect with basic auth
-app.use('/admin', basicAuthMiddleware, routes);
+// Admin routes – protected with basic auth
+app.use('/admin', basicAuthMiddleware, adminRoutes);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Santosh Shastri Backend is running');
 });
 
-// Initialize DB then start server
+// Initialize DB then start the server
 initializeDatabase()
   .then(() => {
     app.listen(PORT, () => {
@@ -41,30 +42,3 @@ initializeDatabase()
     console.error('Failed to initialize database:', err);
     process.exit(1);
   });
-
-
-import dotenv from 'dotenv';
-import routes from './routes';
-import { basicAuthMiddleware } from './auth';
-
-dotenv.config();
-
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-app.use(cors());
-app.use(express.json());
-
-// Public API routes (booking, etc.)
-app.use('/api', routes);
-
-// Admin dashboard routes – protect with basic auth
-app.use('/admin', basicAuthMiddleware, routes);
-
-app.get('/', (req: Request, res: Response) => {
-  res.send('Santosh Shastri Backend is running');
-});
-
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-});
