@@ -28,7 +28,7 @@ function BookingForm() {
     e.preventDefault();
     setStatus('loading');
     try {
-      const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || 'https://santoshshastri-backend-production.up.railway.app';
       await axios.post(`${backendUrl}/api/book`, formData);
       setStatus('success');
       setMessage('🎉 Booking confirmed! Check your email for the video‑call link.');
