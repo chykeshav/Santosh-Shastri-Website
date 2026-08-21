@@ -3,13 +3,10 @@ import axios from 'axios';
 
 function BookingForm() {
   const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    datetime: '',
-    service: ''
+    name: '', phone: '', email: '', datetime: '', service: ''
   });
   const [message, setMessage] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
   const services = [
     'Court Marriage Assistance',
@@ -20,7 +17,7 @@ function BookingForm() {
     'Shanti Kalash Puja',
     'Durga Paath',
     'Rudrabhishek',
-    'Janam Kundli Consultation'
+    'Janam Kundli Consultation',
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -29,74 +26,125 @@ function BookingForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setStatus('loading');
     try {
       const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
-      const res = await axios.post(`${backendUrl}/api/book`, formData);
-      setMessage('Booking successful! Check your email for the video‑call link.');
+      await axios.post(`${backendUrl}/api/book`, formData);
+      setStatus('success');
+      setMessage('🎉 Booking confirmed! Check your email for the video‑call link.');
       setFormData({ name: '', phone: '', email: '', datetime: '', service: '' });
-    } catch (err) {
-      console.error(err);
-      setMessage('Error submitting booking. Please try again later.');
+    } catch {
+      setStatus('error');
+      setMessage('❌ Booking failed. Please try again or WhatsApp us directly.');
     }
   };
 
   return (
-    <section className="bg-maroon text-cream py-12 px-4" id="booking">
-      <div className="max-w-xl mx-auto">
-        <h2 className="text-2xl font-bold text-center mb-6">Book Online Puja / Video Consultation</h2>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <input
-            type="text"
-            name="name"
-            placeholder="Your Name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-            className="p-2 rounded border border-cream text-maroon"
-          />
-          <input
-            type="tel"
-            name="phone"
-            placeholder="Phone Number"
-            value={formData.phone}
-            onChange={handleChange}
-            required
-            className="p-2 rounded border border-cream text-maroon"
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            className="p-2 rounded border border-cream text-maroon"
-          />
-          <input
-            type="datetime-local"
-            name="datetime"
-            value={formData.datetime}
-            onChange={handleChange}
-            required
-            className="p-2 rounded border border-cream text-maroon"
-          />
-          <select
-            name="service"
-            value={formData.service}
-            onChange={handleChange}
-            required
-            className="p-2 rounded border border-cream text-maroon"
+    <section className="booking-gradient text-white py-16 px-4" id="booking">
+      <div className="max-w-2xl mx-auto">
+        {/* Header */}
+        <h2 className="section-title text-white" style={{ fontFamily: "'Playfair Display', serif" }}>
+          Book Online Puja / Video Consultation
+        </h2>
+        <div className="om-divider" style={{ color: '#fbbf24' }}>ॐ</div>
+        <p className="text-center text-white/70 mb-8 text-sm">
+          Fill in your details and we'll send a Jitsi video‑call link to your email.
+        </p>
+
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 bg-white/10 backdrop-blur-md rounded-2xl p-8 shadow-2xl border border-white/20">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-semibold text-amber-300 mb-1 uppercase tracking-wider">Full Name</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Your Name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                className="form-input"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-amber-300 mb-1 uppercase tracking-wider">Phone</label>
+              <input
+                type="tel"
+                name="phone"
+                placeholder="+91 XXXXX XXXXX"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+                className="form-input"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-amber-300 mb-1 uppercase tracking-wider">Email</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="your@email.com"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="form-input"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-semibold text-amber-300 mb-1 uppercase tracking-wider">Date &amp; Time</label>
+              <input
+                type="datetime-local"
+                name="datetime"
+                value={formData.datetime}
+                onChange={handleChange}
+                required
+                className="form-input"
+                style={{ colorScheme: 'dark' }}
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-amber-300 mb-1 uppercase tracking-wider">Service</label>
+              <select
+                name="service"
+                value={formData.service}
+                onChange={handleChange}
+                required
+                className="form-input"
+              >
+                <option value="" disabled className="text-gray-800">Select Service</option>
+                {services.map((s) => (
+                  <option key={s} value={s} className="text-gray-800">{s}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            disabled={status === 'loading'}
+            className="mt-2 w-full py-3 px-6 rounded-xl font-bold text-white text-lg tracking-wide shadow-lg
+                       bg-gradient-to-r from-amber-500 to-amber-400
+                       hover:from-amber-400 hover:to-yellow-300 hover:text-amber-900
+                       disabled:opacity-60 disabled:cursor-not-allowed
+                       active:scale-95 transition-all duration-200"
           >
-            <option value="" disabled>Select Service</option>
-            {services.map((s) => (
-              <option key={s} value={s}>{s}</option>
-            ))}
-          </select>
-          <button type="submit" className="bg-saffron text-maroon py-2 rounded hover:bg-gold transition">
-            Submit Booking
+            {status === 'loading' ? '⏳ Submitting...' : '📅 Submit Booking'}
           </button>
         </form>
-        {message && <p className="mt-4 text-center">{message}</p>}
+
+        {/* Status message */}
+        {message && (
+          <div className={`mt-5 p-4 rounded-xl text-center font-medium text-sm
+            ${status === 'success'
+              ? 'bg-green-500/20 border border-green-400/40 text-green-200'
+              : 'bg-red-500/20 border border-red-400/40 text-red-200'
+            }`}>
+            {message}
+          </div>
+        )}
       </div>
     </section>
   );

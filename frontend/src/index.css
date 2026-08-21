@@ -1,3 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #FFFDD0;
+    color: #1a1a1a;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@layer components {
+  /* ── Booking Form Inputs ──────────────────────────── */
+  .form-input {
+    @apply w-full px-4 py-3 rounded-lg border-2 border-white/40 bg-white/15
+           text-white placeholder-white/60 backdrop-blur-sm
+           focus:outline-none focus:border-amber-300 focus:bg-white/25
+           transition-all duration-200;
+  }
+
+  /* ── CTA Buttons ──────────────────────────────────── */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+           bg-amber-500 text-white font-semibold
+           px-6 py-3 rounded-lg shadow-lg
+           hover:bg-amber-400 hover:shadow-amber-400/40 hover:shadow-xl
+           active:scale-95 transition-all duration-200;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2
+           bg-white/10 text-white font-semibold border-2 border-white/40
+           px-6 py-3 rounded-lg backdrop-blur-sm
+           hover:bg-white/20 hover:border-white/70
+           active:scale-95 transition-all duration-200;
+  }
+
+  /* ── Service Cards ────────────────────────────────── */
+  .service-card {
+    @apply bg-white rounded-2xl p-5 shadow-md border border-amber-100
+           hover:shadow-xl hover:-translate-y-1 hover:border-amber-300
+           transition-all duration-300 cursor-default;
+  }
+
+  /* ── Section Title ────────────────────────────────── */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    @apply text-3xl md:text-4xl font-bold text-center mb-10;
+  }
+}
+
+/* ── Decorative divider ──────────────────────────────── */
+.om-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  margin: 20px 0;
+  color: #D4AF37;
+  font-size: 1.4rem;
+  opacity: 0.8;
+}
+.om-divider::before,
+.om-divider::after {
+  content: '';
+  flex: 1;
+  max-width: 80px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #D4AF37);
+}
+.om-divider::after {
+  background: linear-gradient(to left, transparent, #D4AF37);
+}
+
+/* ── Gradient hero bg ────────────────────────────────── */
+.hero-gradient {
+  background: linear-gradient(135deg, #6b0000 0%, #800000 50%, #9a0000 100%);
+}
+
+/* ── Booking section gradient ─────────────────────────── */
+.booking-gradient {
+  background: linear-gradient(160deg, #7a0000 0%, #a00000 60%, #7a0000 100%);
+}
+
+/* ── Floating label animation ─────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeInUp {
+  animation: fadeInUp 0.5s ease forwards;
+}
+.delay-100 { animation-delay: 0.1s; opacity: 0; }
+.delay-200 { animation-delay: 0.2s; opacity: 0; }
+.delay-300 { animation-delay: 0.3s; opacity: 0; }
+.delay-400 { animation-delay: 0.4s; opacity: 0; }
