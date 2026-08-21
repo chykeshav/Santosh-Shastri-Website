@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+const FALLBACK_BACKEND = 'https://santoshshastri-backend-production.up.railway.app';
+
+function resolveBackendUrl(): string {
+  const raw = String(import.meta.env.VITE_BACKEND_URL ?? '').trim().replace(/\/+$/, '');
+  const isTrusted = /^https:\/\/santoshshastri-backend[^/]*railway\.app$/.test(raw)
+    || /^http:\/\/localhost(:\d+)?$/.test(raw);
+  return isTrusted ? raw : FALLBACK_BACKEND;
+}
+
 function BookingForm() {
   const [formData, setFormData] = useState({
     name: '', phone: '', email: '', datetime: '', service: ''
@@ -28,7 +37,7 @@ function BookingForm() {
     e.preventDefault();
     setStatus('loading');
     try {
-      const backendUrl = import.meta.env.VITE_BACKEND_URL || 'https://santoshshastri-backend-production.up.railway.app';
+      const backendUrl = resolveBackendUrl();
       await axios.post(`${backendUrl}/api/book`, formData);
       setStatus('success');
       setMessage('🎉 Booking confirmed! Check your email for the video‑call link.');
