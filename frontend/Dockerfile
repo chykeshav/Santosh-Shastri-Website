@@ -1,17 +1,14 @@
 FROM node:18-slim AS builder
 WORKDIR /app
 
-# Copy package files (works whether build context is / or /frontend)
-COPY package*.json frontend/package*.json ./
-RUN npm install
-
-# Copy all source files
+# Copy everything, then flatten if the build context is the repo root
+# (context = /frontend -> already flat; context = / -> has a frontend/ subfolder)
 COPY . .
-# If frontend subdirectory exists in container (root build context), flatten it
-RUN if [ -d "frontend" ] && [ -f "frontend/package.json" ]; then cp -r frontend/* ./ ; fi
+RUN if [ -f frontend/package.json ]; then cp -r frontend/. . ; fi
 
 ARG VITE_BACKEND_URL
 ENV VITE_BACKEND_URL=$VITE_BACKEND_URL
+RUN npm install
 RUN npm run build
 
 # ── Serve built static assets with Nginx ───────────────────
