@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import routes from './routes';
 import adminRoutes from './adminRoutes';
+import emailTest from './emailTest';
 import { basicAuthMiddleware } from './auth';
 import { initializeDatabase } from './db';
 
@@ -31,6 +32,9 @@ app.get('/health', (req: Request, res: Response) => {
 
 // Public API routes (booking, etc.)
 app.use('/api', routes);
+
+// Email test route
+app.use('/api', emailTest);
 
 // Admin routes – protected with basic auth
 app.use('/admin', basicAuthMiddleware, adminRoutes);
