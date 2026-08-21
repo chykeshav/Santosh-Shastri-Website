@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
 const images = [
-  '/images/photo1.jpg',
-  '/images/photo2.jpg',
-  '/images/photo3.jpg',
-  '/images/photo4.jpg',
-  '/images/photo5.jpg',
+  { src: '/images/pandit1.jpg',  alt: 'Pandit Santosh Shastri at temple' },
+  { src: '/images/pandit2.png',  alt: 'Pandit Santosh Shastri at puja ceremony' },
+  { src: '/images/wedding1.jpg', alt: 'Court Marriage ceremony conducted by Pandit ji' },
+  { src: '/images/pandit3.jpg',  alt: 'Pandit Santosh Shastri' },
+  { src: '/images/pandit4.png',  alt: 'Pandit Santosh Shastri at home puja' },
 ];
 
 const Gallery = () => {
@@ -18,7 +18,7 @@ const Gallery = () => {
         <div className="om-divider">ॐ</div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mt-8">
-          {images.map((src, idx) => (
+          {images.map(({ src, alt }, idx) => (
             <div
               key={idx}
               className="overflow-hidden rounded-xl shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer aspect-square bg-gray-100"
@@ -26,7 +26,7 @@ const Gallery = () => {
             >
               <img
                 src={src}
-                alt={`Gallery ${idx + 1}`}
+                alt={alt}
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   (e.target as HTMLImageElement).closest('div')!.classList.add('flex','items-center','justify-center');
