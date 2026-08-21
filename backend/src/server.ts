@@ -11,16 +11,17 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// CORS: allow the configured frontend URL plus known deployment origins,
-// so a missing/wrong FRONTEND_URL env var can never break the live site.
-const defaultOrigins = [
-  'https://santoshshastri-website.vercel.app',
-  'https://santoshshastri.vercel.app',
-  'http://localhost:5173',
-];
-const envOrigin = process.env.FRONTEND_URL ? process.env.FRONTEND_URL.trim() : '';
-const allowedOrigins = Array.from(new Set([envOrigin, ...defaultOrigins].filter(Boolean)));
-app.use(cors({ origin: allowedOrigins, credentials: true }));
+// CORS: allow any *.vercel.app deployment (project/preview domains change),
+// localhost dev, plus an optional extra origin via FRONTEND_URL env var.
+const extraOrigin = process.env.FRONTEND_URL ? process.env.FRONTEND_URL.trim() : '';
+const isAllowedOrigin = (origin: string): boolean =>
+  /^https:\/\/[a-z0-9-]+\.vercel\.app$/i.test(origin)
+  || /^http:\/\/localhost(:\d+)?$/.test(origin)
+  || (!!extraOrigin && origin === extraOrigin);
+app.use(cors({
+  origin: (origin, callback) => callback(null, !origin || isAllowedOrigin(origin)),
+  credentials: true,
+}));
 app.use(express.json());
 
 // Health check endpoint
