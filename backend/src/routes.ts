@@ -6,10 +6,11 @@ import { getDb } from './db';
 const router = Router();
 
 function getTransporter() {
+  const port = Number(process.env.SMTP_PORT) || 465;
   return nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT) || 587,
-    secure: false,
+    host: process.env.SMTP_HOST || 'smtp.gmail.com',
+    port,
+    secure: port === 465,   // true for 465 (SSL), false for 587 (STARTTLS)
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
@@ -42,13 +43,55 @@ router.post('/book', async (req: Request, res: Response) => {
   if (process.env.SMTP_USER && process.env.SMTP_PASS) {
     const meetLink = `https://meet.jit.si/SantoshShastri-${service.replace(/\s+/g, '')}-${id.substring(0, 8)}`;
     const transporter = getTransporter();
+    const htmlBody = `
+      <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;border:1px solid #e0e0e0;border-radius:8px;overflow:hidden;">
+        <div style="background:#800000;padding:24px;text-align:center;">
+          <h1 style="color:#FFD700;margin:0;font-size:28px;">ॐ</h1>
+          <h2 style="color:#fff;margin:8px 0 0;">Santosh Shastri</h2>
+          <p style="color:#FFD700;margin:4px 0 0;font-size:13px;">Court Marriage &amp; Puja-Paath Services</p>
+        </div>
+        <div style="padding:28px;">
+          <p style="font-size:16px;">Namaste <strong>${name}</strong>,</p>
+          <p>Aapki booking confirm ho gayi hai. Details neeche diye gaye hain:</p>
+          <table style="width:100%;border-collapse:collapse;margin:16px 0;">
+            <tr style="background:#FFF8DC;">
+              <td style="padding:10px;border:1px solid #ddd;font-weight:bold;">Service</td>
+              <td style="padding:10px;border:1px solid #ddd;">${service}</td>
+            </tr>
+            <tr>
+              <td style="padding:10px;border:1px solid #ddd;font-weight:bold;">Date &amp; Time</td>
+              <td style="padding:10px;border:1px solid #ddd;">${datetime}</td>
+            </tr>
+            <tr style="background:#FFF8DC;">
+              <td style="padding:10px;border:1px solid #ddd;font-weight:bold;">Booking ID</td>
+              <td style="padding:10px;border:1px solid #ddd;">${id.substring(0, 8).toUpperCase()}</td>
+            </tr>
+          </table>
+          <p style="margin-top:24px;"><strong>Video Call Link (Jitsi Meet):</strong></p>
+          <div style="text-align:center;margin:16px 0;">
+            <a href="${meetLink}" style="background:#FF9933;color:#fff;padding:14px 28px;border-radius:6px;text-decoration:none;font-size:16px;font-weight:bold;">
+              🎥 Join Video Call
+            </a>
+          </div>
+          <p style="font-size:13px;color:#666;">Ya phir is link ko copy karein: <a href="${meetLink}">${meetLink}</a></p>
+          <hr style="margin:24px 0;border:none;border-top:1px solid #eee;"/>
+          <p style="font-size:13px;color:#999;">Koi samasya ho toh WhatsApp karein: <a href="https://wa.me/919323152991">+91 93231 52991</a></p>
+        </div>
+        <div style="background:#800000;padding:12px;text-align:center;">
+          <p style="color:#FFD700;margin:0;font-size:12px;">© ${new Date().getFullYear()} Santosh Shastri. All rights reserved.</p>
+        </div>
+      </div>
+    `;
     transporter.sendMail({
-      from: process.env.SMTP_USER,
+      from: `"Santosh Shastri" <${process.env.SMTP_USER}>`,
       to: email,
-      subject: `Booking Confirmation & Video Call Link – Santosh Shastri`,
-      text: `Namaste ${name},\n\nAapki booking "${service}" ke liye ${datetime} par confirm ho gayi hai.\n\nVideo Call Meeting Link: ${meetLink}\n\nPuja/consultation ke samay upar diye gaye link par click karke join karein. Agar koi samasya ho toh humse contact karein.\n\nDhanyavaad,\nSantosh Shastri`,
+      subject: `✅ Booking Confirmed & Video Call Link – Santosh Shastri`,
+      text: `Namaste ${name},\n\nAapki booking "${service}" ke liye ${datetime} par confirm ho gayi hai.\n\nVideo Call Link: ${meetLink}\n\nDhanyavaad,\nSantosh Shastri\nWhatsApp: +91 93231 52991`,
+      html: htmlBody,
+    }).then(() => {
+      console.log(`Confirmation email sent to ${email}`);
     }).catch((err) => {
-      console.error('Failed to send confirmation email:', err);
+      console.error('Failed to send confirmation email:', err.message);
     });
   }
 
