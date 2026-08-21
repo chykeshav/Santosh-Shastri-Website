@@ -4,11 +4,11 @@ import nodemailer from 'nodemailer';
 const router = Router();
 
 function getTransporter() {
-  const port = Number(process.env.SMTP_PORT) || 465;
-  return nodemailer.createTransporter({
+  const port = Number(process.env.SMTP_PORT) || 587;
+  return nodemailer.createTransport({
     host: process.env.SMTP_HOST || 'smtp.gmail.com',
     port,
-    secure: port === 465,
+    secure: port === 465,   // true for 465 (SSL), false for 587 (STARTTLS)
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
@@ -20,7 +20,7 @@ function getTransporter() {
 router.get('/test-email', async (req: Request, res: Response) => {
   console.log('Testing email with config:', {
     SMTP_HOST: process.env.SMTP_HOST || 'smtp.gmail.com',
-    SMTP_PORT: process.env.SMTP_PORT || 465,
+    SMTP_PORT: process.env.SMTP_PORT || 587,
     SMTP_USER: process.env.SMTP_USER || 'not_set',
     SMTP_PASS: process.env.SMTP_PASS ? '***SET***' : 'not_set'
   });
