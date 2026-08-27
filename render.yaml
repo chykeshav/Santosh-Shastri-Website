@@ -26,13 +26,3 @@ services:
       - key: FRONTEND_URL
         sync: false          # Set to your Render frontend URL after deploying
 
-  # ── Frontend (React + Vite, served via Nginx) ────────────────────────────
-  - type: web
-    name: santoshshastri-frontend
-    runtime: docker
-    dockerfilePath: ./frontend/Dockerfile
-    dockerContext: ./frontend
-    plan: free
-    envVars:
-      - key: VITE_BACKEND_URL
-        sync: false          # Set to your Render backend URL after deploying
