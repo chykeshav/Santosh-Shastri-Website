@@ -6,7 +6,7 @@ import { getDb } from './db';
 const router = Router();
 
 function getTransporter() {
-  const port = Number(process.env.SMTP_PORT) || 465;
+  const port = Number(process.env.SMTP_PORT) || 587;
   return nodemailer.createTransport({
     host: process.env.SMTP_HOST || 'smtp.gmail.com',
     port,
