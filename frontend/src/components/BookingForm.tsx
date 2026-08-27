@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+// Fallback only used if VITE_BACKEND_URL wasn't set at build time.
+// IMPORTANT: whichever host you actually deploy the backend to (Railway, Render, or
+// api.santoshshastri.site), set VITE_BACKEND_URL to that URL in the frontend's build
+// env (Vercel project settings) — it is trusted directly, no need to edit this file.
 const FALLBACK_BACKEND = 'https://santoshshastri-backend-production.up.railway.app';
 
 function resolveBackendUrl(): string {
   const raw = String(import.meta.env.VITE_BACKEND_URL ?? '').trim().replace(/\/+$/, '');
-  const isTrusted = /^https:\/\/santoshshastri-backend[^/]*railway\.app$/.test(raw)
-    || /^http:\/\/localhost(:\d+)?$/.test(raw);
-  return isTrusted ? raw : FALLBACK_BACKEND;
+  // Any well-formed http(s) URL set at build time is trusted — it comes from our own
+  // Vercel project config, not from anything a visitor can influence.
+  const isWellFormed = /^https?:\/\/[^\s/]+$/.test(raw);
+  return isWellFormed ? raw : FALLBACK_BACKEND;
 }
 
 function BookingForm() {
@@ -42,7 +47,10 @@ function BookingForm() {
       setStatus('success');
       setMessage('🎉 Booking confirmed! Check your email for the video‑call link.');
       setFormData({ name: '', phone: '', email: '', datetime: '', service: '' });
-    } catch {
+    } catch (err) {
+      // Logged to the browser console so a failed submit can actually be diagnosed
+      // (open DevTools → Console on the live site to see the real reason).
+      console.error('Booking submit failed:', err);
       setStatus('error');
       setMessage('❌ Booking failed. Please try again or WhatsApp us directly.');
     }

@@ -7,6 +7,11 @@ import Gallery from './components/Gallery';
 import Footer from './components/Footer';
 
 function App() {
+  // No router installed — a plain path check is enough to give /admin its own page.
+  if (window.location.pathname.replace(/\/+$/, '') === '/admin') {
+    return <AdminDashboard />;
+  }
+
   return (
     <div className="flex flex-col min-h-screen">
       <Hero />
