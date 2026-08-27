@@ -43,16 +43,24 @@ function BookingForm() {
     setStatus('loading');
     try {
       const backendUrl = resolveBackendUrl();
-      await axios.post(`${backendUrl}/api/book`, formData);
+      const response = await axios.post(`${backendUrl}/api/book`, formData);
+      const meetLink = response.data.meetLink;
+      
       setStatus('success');
-      setMessage('🎉 Booking confirmed! Check your email for the video‑call link.');
+      setMessage('Redirecting to WhatsApp...');
+      
+      // WhatsApp redirection
+      const waNumber = '919323152991';
+      const waText = `Namaste Santosh ji,\n\nMeri nayi booking hai:\nNaam: ${formData.name}\nPhone: ${formData.phone}\nService: ${formData.service}\nDate/Time: ${formData.datetime}\n\nVideo Call Link: ${meetLink}`;
+      const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waText)}`;
+      
+      window.location.href = waUrl;
+      
       setFormData({ name: '', phone: '', email: '', datetime: '', service: '' });
     } catch (err) {
-      // Logged to the browser console so a failed submit can actually be diagnosed
-      // (open DevTools → Console on the live site to see the real reason).
       console.error('Booking submit failed:', err);
       setStatus('error');
-      setMessage('❌ Booking failed. Please try again or WhatsApp us directly.');
+      setMessage('Booking failed. Please try again or WhatsApp us directly.');
     }
   };
 
