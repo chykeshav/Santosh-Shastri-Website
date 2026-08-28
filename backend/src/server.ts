@@ -50,11 +50,11 @@ app.use('/api/admin', basicAuthMiddleware, adminRoutes);
 
 // --- STATIC FRONTEND SERVING ---
 // Serve static frontend files from /app/frontend-dist
-app.use(express.static(path.join(__dirname, '../../frontend-dist')));
+app.use(express.static(path.join(__dirname, '../frontend-dist')));
 
 // Fallback for React Router: Send index.html for any unknown route
 app.get('*', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '../../frontend-dist/index.html'));
+  res.sendFile(path.join(__dirname, '../frontend-dist/index.html'));
 });
 
 // Initialize DB then start the server
