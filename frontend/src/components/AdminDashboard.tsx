@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const FALLBACK_BACKEND = 'https://santosh-shastri-website.onrender.com';
+const FALLBACK_BACKEND = '';
 
 function resolveBackendUrl(): string {
   const raw = String(import.meta.env.VITE_BACKEND_URL ?? '').trim().replace(/\/+$/, '');
@@ -42,7 +42,7 @@ function AdminDashboard() {
     setError('');
     try {
       const backendUrl = resolveBackendUrl();
-      const res = await axios.get(`${backendUrl}/admin/bookings`, {
+      const res = await axios.get(`${backendUrl}/api/admin/bookings`, {
         headers: { Authorization: 'Basic ' + btoa(`${u}:${p}`) },
       });
       setBookings(res.data as Booking[]);
