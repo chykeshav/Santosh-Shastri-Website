@@ -3,47 +3,47 @@ import React from 'react';
 const services = [
   { 
     title: 'Court Marriage Assistance', 
-    image: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=400&q=80', 
+    image: 'https://loremflickr.com/400/300/wedding,india?random=1', 
     description: 'Full guidance and paperwork for court marriage in Mumbai.' 
   },
   { 
     title: 'Marriage Registration', 
-    image: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=400&q=80', 
+    image: 'https://loremflickr.com/400/300/law,document?random=2', 
     description: 'Official registration of your marriage with all legal formalities.' 
   },
   { 
     title: 'Ganpati Puja', 
-    image: 'https://images.unsplash.com/photo-1566838318109-a8bffb91d082?auto=format&fit=crop&w=400&q=80', 
+    image: 'https://loremflickr.com/400/300/ganesha,idol?random=3', 
     description: 'Traditional Ganpati worship ceremony for new beginnings.' 
   },
   { 
     title: 'Satyanarayan Puja', 
-    image: 'https://images.unsplash.com/photo-1601004928169-b593eb42cb1a?auto=format&fit=crop&w=400&q=80', 
+    image: 'https://loremflickr.com/400/300/puja,thali?random=4', 
     description: 'Devotional worship of Lord Satyanarayan for prosperity.' 
   },
   { 
     title: 'Navgrah Puja', 
-    image: 'https://images.unsplash.com/photo-1596495392661-0738a95610fb?auto=format&fit=crop&w=400&q=80', 
+    image: 'https://loremflickr.com/400/300/fire,ritual,india?random=5', 
     description: 'Remedial puja for the nine planets to bring harmony.' 
   },
   { 
     title: 'Shanti Kalash Puja', 
-    image: 'https://images.unsplash.com/photo-1614264627018-c21e6be95221?auto=format&fit=crop&w=400&q=80', 
+    image: 'https://loremflickr.com/400/300/copper,pot,flower?random=6', 
     description: 'Peace-bringing Kalash puja for home and family.' 
   },
   { 
     title: 'Durga Paath', 
-    image: 'https://images.unsplash.com/photo-1601115856488-692abce15975?auto=format&fit=crop&w=400&q=80', 
+    image: 'https://loremflickr.com/400/300/durga,goddess?random=7', 
     description: 'Recitation of Durga stotra for divine blessings.' 
   },
   { 
     title: 'Rudrabhishek', 
-    image: 'https://images.unsplash.com/photo-1587837073080-448bc6a2329b?auto=format&fit=crop&w=400&q=80', 
+    image: 'https://loremflickr.com/400/300/shiva,lingam?random=8', 
     description: 'Sacred Rudra abhishek ceremony for Lord Shiva.' 
   },
   { 
     title: 'Janam Kundli Consultation', 
-    image: 'https://images.unsplash.com/photo-1516244670077-83ab41c7bceb?auto=format&fit=crop&w=400&q=80', 
+    image: 'https://loremflickr.com/400/300/astrology,horoscope?random=9', 
     description: 'Astrological birth-chart analysis and life guidance.' 
   },
 ];
