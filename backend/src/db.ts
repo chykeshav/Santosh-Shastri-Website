@@ -22,7 +22,15 @@ export async function initializeDatabase(): Promise<void> {
       datetime TEXT NOT NULL,
       service TEXT NOT NULL,
       created_at TEXT NOT NULL
-    )
+    );
+
+    CREATE TABLE IF NOT EXISTS feedbacks (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      rating INTEGER NOT NULL,
+      message TEXT NOT NULL,
+      created_at TEXT NOT NULL
+    );
   `);
 }
 

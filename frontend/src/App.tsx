@@ -10,6 +10,7 @@ import AboutUs from './components/AboutUs';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import Terms from './components/Terms';
 import ContactUs from './components/ContactUs';
+import Testimonials from './components/Testimonials';
 
 function App() {
   const path = window.location.pathname.replace(/\/+$/, '');
@@ -29,6 +30,7 @@ function App() {
          <Services />
          <BookingForm />
          <Gallery />
+         <Testimonials />
        </>}
        
       <Footer />
