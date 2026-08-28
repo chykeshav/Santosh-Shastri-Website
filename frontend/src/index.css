@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -16,6 +16,27 @@
     background-color: #FFFDD0;
     color: #1a1a1a;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  ::selection {
+    background: #D4AF37;
+    color: #ffffff;
+  }
+  /* Custom scrollbar for a more premium feel */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #FFFDD0;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #D4AF37, #800000);
+    border-radius: 999px;
+  }
+  :focus-visible {
+    outline: 2px solid #D4AF37;
+    outline-offset: 2px;
   }
 }
 
@@ -68,6 +89,23 @@
     font-family: 'Playfair Display', serif;
     @apply text-3xl md:text-4xl font-bold text-center mb-10;
   }
+
+  /* ── Small uppercase kicker label above section titles ─ */
+  .section-eyebrow {
+    @apply inline-flex items-center gap-2 text-amber-600 font-bold text-xs md:text-sm
+           tracking-[0.2em] uppercase mb-3;
+  }
+
+  /* ── Premium elevated card ────────────────────────── */
+  .card-premium {
+    @apply bg-white rounded-2xl md:rounded-3xl shadow-card border border-amber-100/70;
+  }
+
+  /* ── Pill badge ───────────────────────────────────── */
+  .badge-pill {
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold
+           bg-amber-50 text-amber-800 border border-amber-200;
+  }
 }
 
 /* ── Decorative divider ──────────────────────────────── */
@@ -103,6 +141,27 @@
   background: linear-gradient(160deg, #7a0000 0%, #a00000 60%, #7a0000 100%);
 }
 
+/* ── Decorative dot-grid pattern overlay (pure CSS, no images) ─ */
+.pattern-dots {
+  background-image: radial-gradient(rgba(212, 175, 55, 0.35) 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
+}
+.pattern-dots-dark {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
+}
+
+/* ── Soft radial glow used behind portraits / CTAs ────── */
+.glow-amber {
+  background: radial-gradient(circle, rgba(252, 211, 77, 0.45) 0%, rgba(252, 211, 77, 0) 70%);
+}
+
+/* ── Faint rotating mandala ring (decorative, CSS only) ── */
+.mandala-ring {
+  border: 1px dashed rgba(212, 175, 55, 0.35);
+  border-radius: 9999px;
+}
+
 /* ── Floating label animation ─────────────────────────── */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(20px); }
@@ -115,3 +174,19 @@
 .delay-200 { animation-delay: 0.2s; opacity: 0; }
 .delay-300 { animation-delay: 0.3s; opacity: 0; }
 .delay-400 { animation-delay: 0.4s; opacity: 0; }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.25s ease forwards;
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.animate-scaleIn {
+  animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
