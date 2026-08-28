@@ -45,7 +45,7 @@ function AboutUs() {
             </div>
 
             <div className="mt-10">
-              <a href="/#booking" className="inline-block bg-amber-500 text-white font-bold px-8 py-3 rounded-lg shadow-lg hover:bg-amber-400 transition-colors">
+              <a href="/#booking" className="btn-3d px-10 py-4 text-lg">
                 Book a Service
               </a>
             </div>

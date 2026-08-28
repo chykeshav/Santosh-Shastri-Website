@@ -67,7 +67,7 @@ function ContactUs() {
                 href="https://wa.me/919323152991" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-full block text-center bg-[#D4AF37] text-gray-900 font-bold text-lg py-4 rounded-xl shadow-xl hover:bg-amber-400 transition"
+                className="w-full block text-center btn-3d py-4 text-lg"
               >
                 Chat on WhatsApp Now
               </a>

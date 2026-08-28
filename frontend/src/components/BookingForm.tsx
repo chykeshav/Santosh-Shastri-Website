@@ -177,10 +177,7 @@ function BookingForm() {
               <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="mt-4 w-full py-4 px-6 rounded-xl font-bold text-white text-lg tracking-wide shadow-lg
-                           bg-[#D4AF37] hover:bg-amber-500 
-                           disabled:opacity-60 disabled:cursor-not-allowed
-                           active:scale-95 transition-all duration-200"
+                className="mt-4 w-full btn-3d py-4 text-lg tracking-wide disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {status === 'loading' ? 'Submitting...' : 'Confirm & Proceed to WhatsApp'}
               </button>

@@ -28,21 +28,32 @@
            transition-all duration-200;
   }
 
-  /* ── CTA Buttons ──────────────────────────────────── */
-  .btn-primary {
-    @apply inline-flex items-center justify-center gap-2
-           bg-amber-500 text-white font-semibold
-           px-6 py-3 rounded-lg shadow-lg
-           hover:bg-amber-400 hover:shadow-amber-400/40 hover:shadow-xl
-           active:scale-95 transition-all duration-200;
+  /* 🟡 CTA Buttons & 3D Buttons 🟡 */
+  .btn-3d {
+    @apply relative inline-flex items-center justify-center gap-2
+           bg-amber-500 text-white font-bold
+           px-6 py-3 rounded-xl
+           border-b-[4px] border-amber-700 shadow-md
+           hover:bg-amber-400 hover:border-amber-600 hover:-translate-y-[2px] hover:shadow-lg
+           active:border-b-0 active:translate-y-[4px] active:shadow-none transition-all duration-100;
   }
 
-  .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2
-           bg-white/10 text-white font-semibold border-2 border-white/40
-           px-6 py-3 rounded-lg backdrop-blur-sm
-           hover:bg-white/20 hover:border-white/70
-           active:scale-95 transition-all duration-200;
+  .btn-3d-outline {
+    @apply relative inline-flex items-center justify-center gap-2
+           bg-white/10 text-white font-bold backdrop-blur-sm
+           px-6 py-3 rounded-xl
+           border-2 border-b-[6px] border-white/40 shadow-md
+           hover:bg-white/20 hover:border-white/60 hover:-translate-y-[2px] hover:shadow-lg
+           active:border-t-[4px] active:border-b-2 active:translate-y-[4px] active:shadow-none transition-all duration-100;
+  }
+
+  .btn-3d-dark {
+    @apply relative inline-flex items-center justify-center gap-2
+           bg-[#800000] text-white font-bold
+           px-6 py-3 rounded-xl
+           border-b-[4px] border-[#4a0000] shadow-md
+           hover:bg-[#9a0000] hover:border-[#5a0000] hover:-translate-y-[2px] hover:shadow-lg
+           active:border-b-0 active:translate-y-[4px] active:shadow-none transition-all duration-100;
   }
 
   /* ── Service Cards ────────────────────────────────── */

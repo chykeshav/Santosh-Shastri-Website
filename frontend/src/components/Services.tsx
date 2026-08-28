@@ -83,7 +83,7 @@ function Services() {
                 </h3>
                 <p className="text-sm text-gray-600 leading-relaxed">{svc.description}</p>
                 <div className="mt-4">
-                  <span className="inline-block px-4 py-2 bg-amber-50 text-amber-700 font-semibold text-xs uppercase tracking-wide rounded-full group-hover:bg-amber-100 transition-colors">
+                  <span className="btn-3d px-6 py-2 text-xs uppercase tracking-wide">
                     Book Now
                   </span>
                 </div>

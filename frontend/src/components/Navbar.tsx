@@ -49,7 +49,7 @@ function Navbar() {
             })}
             <a 
               href="/#booking" 
-              className="ml-4 px-6 py-2.5 bg-amber-500 text-white font-bold rounded-lg shadow hover:bg-amber-400 transition-colors"
+              className="ml-4 btn-3d px-8 py-2.5 text-base"
             >
               Book Now
             </a>
