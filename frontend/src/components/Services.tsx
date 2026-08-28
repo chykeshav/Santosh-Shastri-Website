@@ -59,7 +59,7 @@ function Services() {
 
   return (
     <section className="bg-cream py-16 px-4" id="services">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-[1400px] w-[95%] mx-auto">
         <h2 className="section-title text-maroon">Our Services</h2>
         <div className="om-divider">ॐ</div>
 

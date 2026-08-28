@@ -3,7 +3,7 @@ import React from 'react';
 function Hero() {
   return (
     <section className="bg-[#FFFDD0] pt-6 pb-12 px-4" id="home">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-[1400px] w-[95%] mx-auto">
         {/* Contained Hero Box */}
         <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-white border border-amber-100 flex flex-col md:flex-row">
           

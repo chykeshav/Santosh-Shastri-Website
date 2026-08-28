@@ -3,7 +3,7 @@ import React from 'react';
 function Footer() {
   return (
     <footer className="hero-gradient text-white pt-10 pb-6 px-4">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-[1400px] w-[95%] mx-auto">
         {/* Top row */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}

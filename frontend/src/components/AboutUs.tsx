@@ -3,7 +3,7 @@ import React from 'react';
 function AboutUs() {
   return (
     <div className="flex-grow bg-[#FFFDD0] py-16 px-4 flex items-center justify-center">
-      <div className="max-w-5xl w-full">
+      <div className="max-w-[1400px] w-[95%] w-full">
         {/* Premium Contained About Card */}
         <div className="bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row border border-amber-100">
           

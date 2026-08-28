@@ -3,7 +3,7 @@ import React from 'react';
 function ContactUs() {
   return (
     <div className="flex-grow bg-[#FFFDD0] py-16 px-4 flex items-center justify-center">
-      <div className="max-w-4xl w-full">
+      <div className="max-w-[1400px] w-[95%] w-full">
         {/* Contact Card in Premium Dark Theme */}
         <div className="bg-[#0f0f0f] text-white rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row">
           

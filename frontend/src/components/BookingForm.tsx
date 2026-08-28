@@ -67,7 +67,7 @@ function BookingForm() {
 
   return (
     <section className="bg-[#FFFDD0] py-16 px-4" id="booking">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-[1400px] w-[95%] mx-auto">
         <div className="rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row bg-[#0f0f0f]">
           
           {/* Left Decorative/Info Area */}
