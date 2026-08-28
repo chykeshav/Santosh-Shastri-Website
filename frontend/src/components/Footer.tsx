@@ -51,13 +51,13 @@ function Footer() {
                 </a>
               </li>
               <li>
-                <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"
+                <a href="https://www.facebook.com/search/top?q=Santosh%20S%20Shastri" target="_blank" rel="noopener noreferrer"
                    className="flex items-center gap-2 hover:text-blue-400 transition">
                   <span>📘</span> Facebook
                 </a>
               </li>
               <li>
-                <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"
+                <a href="https://www.instagram.com/santoshsshastri/" target="_blank" rel="noopener noreferrer"
                    className="flex items-center gap-2 hover:text-pink-400 transition">
                   <span>📸</span> Instagram
                 </a>
