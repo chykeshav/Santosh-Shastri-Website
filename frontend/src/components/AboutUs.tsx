@@ -1,22 +1,58 @@
 import React from 'react';
-import Footer from './Footer';
 
 function AboutUs() {
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
-      <div className="flex-grow max-w-4xl mx-auto px-4 py-12 text-gray-800">
-        <div className="mb-8">
-          <a href="/" className="text-amber-600 font-semibold hover:underline">← Back to Home</a>
-        </div>
-        <h1 className="text-3xl font-bold text-amber-700 mb-6 font-serif">About Us</h1>
-        <div className="space-y-4 bg-white p-6 md:p-10 rounded-2xl shadow-sm border border-gray-100">
-          <p>Namaste, welcome to Santosh Shastri's official website.</p>
-          <p>With years of experience in conducting Vedic rituals, Puja-Paath, and providing Court Marriage Assistance, we strive to bring peace, prosperity, and legal ease to our clients' lives in Mumbai, Maharashtra and beyond.</p>
-          <p>Our services include Navgrah Puja, Satyanarayan Puja, Ganpati Puja, Marriage Registration, and personalized Kundli consultations. We believe in preserving traditional Vedic authenticity while offering modern convenience like Video Call consultations.</p>
-          <p>For any inquiries, feel free to contact us via WhatsApp or Email.</p>
+    <div className="flex-grow bg-[#FFFDD0] py-16 px-4 flex items-center justify-center">
+      <div className="max-w-5xl w-full">
+        {/* Premium Contained About Card */}
+        <div className="bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row border border-amber-100">
+          
+          {/* Left Image Area */}
+          <div className="w-full md:w-2/5 relative min-h-[400px]">
+            <img 
+              src="https://loremflickr.com/600/800/temple,india?random=30" 
+              alt="About Santosh Shastri" 
+              className="w-full h-full object-cover" 
+            />
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-maroon/90 to-transparent flex items-end p-8">
+              <div className="text-white">
+                <span className="text-4xl text-amber-400 mb-2 block">ॐ</span>
+                <h2 className="text-2xl font-bold font-serif">Trust &amp; Tradition</h2>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Content Area */}
+          <div className="w-full md:w-3/5 p-10 md:p-16 flex flex-col justify-center bg-white relative">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif text-maroon">
+              About Us
+            </h1>
+            
+            <div className="space-y-5 text-gray-600 text-lg leading-relaxed">
+              <p>
+                <strong className="text-amber-700">Namaste,</strong> welcome to Pandit Santosh Shastri's official website.
+              </p>
+              <p>
+                With decades of profound experience in conducting authentic Vedic rituals, Puja-Paath, and providing expert Court Marriage Assistance, we strive to bring peace, prosperity, and legal ease to our clients' lives in Mumbai and across Maharashtra.
+              </p>
+              <p>
+                Our specialized services include <span className="font-semibold text-gray-800">Navgrah Puja, Satyanarayan Puja, Ganpati Puja, Marriage Registration</span>, and highly personalized <span className="font-semibold text-gray-800">Kundli consultations</span>. 
+              </p>
+              <p>
+                We believe in preserving traditional Vedic authenticity while embracing modern convenience, such as our seamless Online Video Call consultations.
+              </p>
+            </div>
+
+            <div className="mt-10">
+              <a href="/#booking" className="inline-block bg-amber-500 text-white font-bold px-8 py-3 rounded-lg shadow-lg hover:bg-amber-400 transition-colors">
+                Book a Service
+              </a>
+            </div>
+          </div>
+
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

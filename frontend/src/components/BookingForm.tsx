@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-// Fallback only used if VITE_BACKEND_URL wasn't set at build time.
-// IMPORTANT: whichever host you actually deploy the backend to (Railway, Render, or
-// api.santoshshastri.site), set VITE_BACKEND_URL to that URL in the frontend's build
-// env (Vercel project settings) — it is trusted directly, no need to edit this file.
 const FALLBACK_BACKEND = 'https://santoshshastri-backend-production.up.railway.app';
 
 function resolveBackendUrl(): string {
   const raw = String(import.meta.env.VITE_BACKEND_URL ?? '').trim().replace(/\/+$/, '');
-  // Any well-formed http(s) URL set at build time is trusted — it comes from our own
-  // Vercel project config, not from anything a visitor can influence.
   const isWellFormed = /^https?:\/\/[^\s/]+$/.test(raw);
   return isWellFormed ? raw : FALLBACK_BACKEND;
 }
@@ -57,7 +51,6 @@ function BookingForm() {
       setStatus('success');
       setMessage('Redirecting to WhatsApp...');
       
-      // WhatsApp redirection
       const waNumber = '919323152991';
       const waText = `Namaste Santosh ji,\n\nMeri nayi booking hai:\nNaam: ${formData.name}\nPhone: ${formData.phone}\nService: ${formData.service}\nDate/Time: ${formData.datetime}\n\nVideo Call Link: ${meetLink}`;
       const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waText)}`;
@@ -73,111 +66,138 @@ function BookingForm() {
   };
 
   return (
-    <section className="booking-gradient text-white py-16 px-4" id="booking">
-      <div className="max-w-2xl mx-auto">
-        {/* Header */}
-        <h2 className="section-title text-white" style={{ fontFamily: "'Playfair Display', serif" }}>
-          Book Online Puja / Video Consultation
-        </h2>
-        <div className="om-divider" style={{ color: '#fbbf24' }}>ॐ</div>
-        <p className="text-center text-white/70 mb-8 text-sm">
-          Fill in your details to generate a video-call link and confirm your booking via WhatsApp.
-        </p>
+    <section className="bg-[#FFFDD0] py-16 px-4" id="booking">
+      <div className="max-w-5xl mx-auto">
+        <div className="rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row bg-[#0f0f0f]">
+          
+          {/* Left Decorative/Info Area */}
+          <div className="w-full md:w-5/12 booking-gradient p-10 md:p-14 text-white relative flex flex-col justify-center">
+            {/* Subtle glow */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/20 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif leading-tight">
+              Book Your <br/><span className="text-amber-400">Online Puja</span>
+            </h2>
+            <div className="w-16 h-1 bg-amber-400 mb-6 rounded"></div>
+            
+            <p className="text-white/80 mb-8 leading-relaxed">
+              Experience the divine connection from the comfort of your home. Fill out the form, and you'll instantly receive a secure Jitsi Video Call link via WhatsApp to connect with Pandit ji.
+            </p>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4 bg-white/10 backdrop-blur-md rounded-2xl p-8 shadow-2xl border border-white/20">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-semibold text-amber-300 mb-1 uppercase tracking-wider">Full Name</label>
-              <input
-                type="text"
-                name="name"
-                placeholder="Your Name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="form-input"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-semibold text-amber-300 mb-1 uppercase tracking-wider">Phone</label>
-              <input
-                type="tel"
-                name="phone"
-                placeholder="+91 XXXXX XXXXX"
-                value={formData.phone}
-                onChange={handleChange}
-                required
-                className="form-input"
-              />
-            </div>
+            <ul className="space-y-4">
+              <li className="flex items-center gap-3 text-sm text-white/90">
+                <span className="w-8 h-8 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-400">✓</span>
+                Instant Video Link Generation
+              </li>
+              <li className="flex items-center gap-3 text-sm text-white/90">
+                <span className="w-8 h-8 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-400">✓</span>
+                Direct WhatsApp Confirmation
+              </li>
+              <li className="flex items-center gap-3 text-sm text-white/90">
+                <span className="w-8 h-8 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-400">✓</span>
+                100% Authentic Vedic Rituals
+              </li>
+            </ul>
           </div>
 
-          <div>
-            <label className="block text-xs font-semibold text-amber-300 mb-1 uppercase tracking-wider">Email</label>
-            <input
-              type="email"
-              name="email"
-              placeholder="your@email.com"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              className="form-input"
-            />
-          </div>
+          {/* Right Form Area */}
+          <div className="w-full md:w-7/12 p-8 md:p-12 lg:p-14 bg-white relative">
+            <h3 className="text-2xl font-bold text-gray-800 mb-6">Enter Details</h3>
+            
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5 relative z-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  <label className="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Full Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Your Name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-all text-gray-800"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Phone</label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="+91 XXXXX XXXXX"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-all text-gray-800"
+                  />
+                </div>
+              </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-semibold text-amber-300 mb-1 uppercase tracking-wider">Date &amp; Time</label>
-              <input
-                type="datetime-local"
-                name="datetime"
-                value={formData.datetime}
-                onChange={handleChange}
-                required
-                className="form-input"
-                style={{ colorScheme: 'dark' }}
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-semibold text-amber-300 mb-1 uppercase tracking-wider">Service</label>
-              <select
-                name="service"
-                value={formData.service}
-                onChange={handleChange}
-                required
-                className="form-input"
+              <div>
+                <label className="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="your@email.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-all text-gray-800"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  <label className="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Date &amp; Time</label>
+                  <input
+                    type="datetime-local"
+                    name="datetime"
+                    value={formData.datetime}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-all text-gray-800"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Service</label>
+                  <select
+                    name="service"
+                    value={formData.service}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-all text-gray-800"
+                  >
+                    <option value="" disabled>Select Service</option>
+                    {services.map((s) => (
+                      <option key={s} value={s}>{s}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={status === 'loading'}
+                className="mt-4 w-full py-4 px-6 rounded-xl font-bold text-white text-lg tracking-wide shadow-lg
+                           bg-[#D4AF37] hover:bg-amber-500 
+                           disabled:opacity-60 disabled:cursor-not-allowed
+                           active:scale-95 transition-all duration-200"
               >
-                <option value="" disabled className="text-gray-800">Select Service</option>
-                {services.map((s) => (
-                  <option key={s} value={s} className="text-gray-800">{s}</option>
-                ))}
-              </select>
-            </div>
-          </div>
+                {status === 'loading' ? 'Submitting...' : 'Confirm & Proceed to WhatsApp'}
+              </button>
+            </form>
 
-          <button
-            type="submit"
-            disabled={status === 'loading'}
-            className="mt-2 w-full py-3 px-6 rounded-xl font-bold text-white text-lg tracking-wide shadow-lg
-                       bg-gradient-to-r from-amber-500 to-amber-400
-                       hover:from-amber-400 hover:to-yellow-300 hover:text-amber-900
-                       disabled:opacity-60 disabled:cursor-not-allowed
-                       active:scale-95 transition-all duration-200"
-          >
-            {status === 'loading' ? '⏳ Submitting...' : '📅 Submit Booking'}
-          </button>
-        </form>
-
-        {/* Status message */}
-        {message && (
-          <div className={`mt-5 p-4 rounded-xl text-center font-medium text-sm
-            ${status === 'success'
-              ? 'bg-green-500/20 border border-green-400/40 text-green-200'
-              : 'bg-red-500/20 border border-red-400/40 text-red-200'
-            }`}>
-            {message}
+            {/* Status message */}
+            {message && (
+              <div className={`mt-5 p-4 rounded-xl text-center font-medium text-sm
+                ${status === 'success'
+                  ? 'bg-green-50 border border-green-200 text-green-700'
+                  : 'bg-red-50 border border-red-200 text-red-700'
+                }`}>
+                {message}
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </section>
   );
