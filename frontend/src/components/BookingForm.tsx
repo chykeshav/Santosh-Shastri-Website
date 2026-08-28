@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 // Fallback only used if VITE_BACKEND_URL wasn't set at build time.
@@ -21,6 +21,14 @@ function BookingForm() {
   });
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  useEffect(() => {
+    const handleServiceSelect = (e: any) => {
+      setFormData(prev => ({ ...prev, service: e.detail }));
+    };
+    window.addEventListener('selectService', handleServiceSelect);
+    return () => window.removeEventListener('selectService', handleServiceSelect);
+  }, []);
 
   const services = [
     'Court Marriage Assistance',
