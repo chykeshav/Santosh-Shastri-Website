@@ -14,7 +14,7 @@ function Navbar() {
 
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="max-w-[1400px] w-full mx-auto px-4">
         <div className="flex justify-between h-20">
           {/* Logo / Brand */}
           <div className="flex-shrink-0 flex items-center gap-3">
@@ -32,15 +32,17 @@ function Navbar() {
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-3 pr-4">
             {links.map((link) => {
               const isActive = path === link.href || (path === '/' && link.href.startsWith('/#'));
               return (
                 <a
                   key={link.name}
                   href={link.href}
-                  className={`text-sm font-semibold transition-colors duration-200 ${
-                    isActive ? 'text-amber-600 border-b-2 border-amber-600 pb-1' : 'text-gray-700 hover:text-amber-500'
+                  className={`px-4 py-2 rounded-xl text-sm font-bold transition-all duration-150 ${
+                    isActive 
+                      ? 'bg-amber-100 text-amber-800 shadow-[0_3px_0_0_#f59e0b] -translate-y-[2px]' 
+                      : 'text-gray-600 hover:bg-gray-100 hover:text-amber-600 hover:shadow-[0_3px_0_0_#d1d5db] hover:-translate-y-[2px] active:shadow-none active:translate-y-[2px]'
                   }`}
                 >
                   {link.name}
@@ -49,7 +51,7 @@ function Navbar() {
             })}
             <a 
               href="/#booking" 
-              className="ml-4 btn-3d px-8 py-2.5 text-base"
+              className="ml-6 btn-3d px-8 py-2.5 text-base"
             >
               Book Now
             </a>
