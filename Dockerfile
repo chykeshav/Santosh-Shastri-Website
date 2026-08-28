@@ -6,12 +6,12 @@ COPY frontend/ ./
 RUN npm run build
 
 FROM node:18-slim AS backend-builder
-WORKDIR /app/backend
+WORKDIR /app
 RUN apt-get update && apt-get install -y --no-install-recommends python3 make g++ \
     && rm -rf /var/lib/apt/lists/*
-COPY backend/package*.json ./
+COPY . .
+WORKDIR /app/backend
 RUN npm install
-COPY backend/ ./
 RUN npm run build
 
 FROM node:18-slim

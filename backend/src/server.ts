@@ -49,12 +49,20 @@ app.use('/api', emailTest);
 app.use('/api/admin', basicAuthMiddleware, adminRoutes);
 
 // --- STATIC FRONTEND SERVING ---
-// Serve static frontend files from /app/frontend-dist
-app.use(express.static(path.join(__dirname, '../frontend-dist')));
+import fs from 'fs';
+let frontendPath = path.join(__dirname, '../../frontend/dist'); // If running from backend/dist
+if (!fs.existsSync(frontendPath)) {
+  frontendPath = path.join(__dirname, '../frontend/dist'); // If running from backend directly or flattened
+}
+if (!fs.existsSync(frontendPath)) {
+  frontendPath = path.join(__dirname, '../frontend-dist'); // Docker environment
+}
+
+app.use(express.static(frontendPath));
 
 // Fallback for React Router: Send index.html for any unknown route
 app.get('*', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '../frontend-dist/index.html'));
+  res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
 // Initialize DB then start the server

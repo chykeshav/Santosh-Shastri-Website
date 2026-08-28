@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node dist/server.js",
     "dev": "ts-node-dev --respawn src/server.ts",
-    "build": "tsc"
+    "build:frontend": "node -e \"const fs=require('fs'); const cp=require('child_process'); if(fs.existsSync('../frontend/package.json')){ cp.execSync('npm install', {cwd: '../frontend', stdio: 'inherit'}); cp.execSync('npm run build', {cwd: '../frontend', stdio: 'inherit'}); }\"",
+    "build": "npm run build:frontend && tsc"
   },
   "dependencies": {
     "basic-auth": "^2.0.1",
