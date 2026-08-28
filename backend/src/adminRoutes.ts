@@ -1,14 +1,13 @@
 import { Router, Request, Response } from 'express';
-import { getDb } from './db';
+import { pool } from './db';
 
 const router = Router();
 
-// Protected (mounted behind basicAuthMiddleware in server.ts): list all bookings
-router.get('/bookings', (req: Request, res: Response) => {
+// Protected: list all bookings
+router.get('/bookings', async (req: Request, res: Response) => {
   try {
-    const db = getDb();
-    const bookings = db.prepare('SELECT * FROM bookings ORDER BY created_at DESC').all();
-    res.json(bookings);
+    const result = await pool.query('SELECT * FROM bookings ORDER BY created_at DESC');
+    res.json(result.rows);
   } catch (err) {
     console.error('Failed to fetch bookings:', err);
     res.status(500).json({ error: 'Failed to fetch bookings.' });

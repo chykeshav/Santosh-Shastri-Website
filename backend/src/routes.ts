@@ -1,8 +1,8 @@
-import { Router, Request, Response } from 'express';
+import express, { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
-import { getDb } from './db';
+import { pool } from './db';
 
-const router = Router();
+const router = express.Router();
 
 // Public: submit a booking
 router.post('/book', async (req: Request, res: Response) => {
@@ -17,10 +17,10 @@ router.post('/book', async (req: Request, res: Response) => {
   const meetLink = `https://meet.jit.si/SantoshShastri-${service.replace(/\s+/g, '')}-${id.substring(0, 8)}`;
 
   try {
-    const db = getDb();
-    db.prepare(
-      `INSERT INTO bookings (id, name, phone, email, datetime, service, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)`
-    ).run(id, name, phone, email, datetime, service, createdAt);
+    await pool.query(
+      `INSERT INTO bookings (id, name, phone, email, datetime, service, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+      [id, name, phone, email, datetime, service, createdAt]
+    );
   } catch (err) {
     console.error('Failed to save booking:', err);
     return res.status(500).json({ error: 'Failed to save booking.' });
@@ -32,12 +32,11 @@ router.post('/book', async (req: Request, res: Response) => {
 // Public: get all feedbacks
 router.get('/feedback', async (req: Request, res: Response) => {
   try {
-    const db = getDb();
-    const feedbacks = db.prepare('SELECT * FROM feedbacks ORDER BY created_at DESC LIMIT 50').all();
-    res.json(feedbacks);
+    const result = await pool.query('SELECT * FROM feedbacks ORDER BY created_at DESC LIMIT 50');
+    res.json(result.rows);
   } catch (err) {
     console.error('Failed to fetch feedbacks:', err);
-    res.status(500).json({ error: 'Failed to fetch feedbacks.' });
+    return res.status(500).json({ error: 'Failed to fetch feedbacks.' });
   }
 });
 
@@ -53,10 +52,10 @@ router.post('/feedback', async (req: Request, res: Response) => {
   const createdAt = new Date().toISOString();
 
   try {
-    const db = getDb();
-    db.prepare(
-      `INSERT INTO feedbacks (id, name, rating, message, created_at) VALUES (?, ?, ?, ?, ?)`
-    ).run(id, name, rating, message, createdAt);
+    await pool.query(
+      `INSERT INTO feedbacks (id, name, rating, message, created_at) VALUES ($1, $2, $3, $4, $5)`,
+      [id, name, rating, message, createdAt]
+    );
   } catch (err) {
     console.error('Failed to save feedback:', err);
     return res.status(500).json({ error: 'Failed to save feedback.' });

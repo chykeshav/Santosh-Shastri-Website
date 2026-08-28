@@ -1,42 +1,49 @@
-import Database from 'better-sqlite3';
-import path from 'path';
-import fs from 'fs';
+import { Pool } from 'pg';
 
-const dbPath = process.env.SQLITE_DB_PATH || './database/bookings.db';
+const connectionString = process.env.DATABASE_URL || process.env.INTERNAL_DATABASE_URL;
 
-let db: Database.Database;
+export const pool = new Pool({
+  connectionString,
+  ssl: connectionString ? { rejectUnauthorized: false } : false
+});
 
 export async function initializeDatabase(): Promise<void> {
-  const dir = path.dirname(dbPath);
-  if (dir && !fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
+  if (!connectionString) {
+    console.warn('WARNING: DATABASE_URL is not set.');
+    return;
   }
 
-  db = new Database(dbPath);
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS bookings (
-      id TEXT PRIMARY KEY,
-      name TEXT NOT NULL,
-      phone TEXT NOT NULL,
-      email TEXT NOT NULL,
-      datetime TEXT NOT NULL,
-      service TEXT NOT NULL,
-      created_at TEXT NOT NULL
-    );
+  try {
+    const client = await pool.connect();
+    console.log('Connected to PostgreSQL successfully');
 
-    CREATE TABLE IF NOT EXISTS feedbacks (
-      id TEXT PRIMARY KEY,
-      name TEXT NOT NULL,
-      rating INTEGER NOT NULL,
-      message TEXT NOT NULL,
-      created_at TEXT NOT NULL
-    );
-  `);
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS bookings (
+        id VARCHAR(255) PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        phone VARCHAR(50) NOT NULL,
+        email VARCHAR(255) NOT NULL,
+        datetime VARCHAR(255) NOT NULL,
+        service VARCHAR(255) NOT NULL,
+        created_at VARCHAR(255) NOT NULL
+      );
+
+      CREATE TABLE IF NOT EXISTS feedbacks (
+        id VARCHAR(255) PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        rating INTEGER NOT NULL,
+        message TEXT NOT NULL,
+        created_at VARCHAR(255) NOT NULL
+      );
+    `);
+
+    client.release();
+    console.log('PostgreSQL tables checked/created');
+  } catch (err) {
+    console.error('Error initializing PostgreSQL database:', err);
+  }
 }
 
-export function getDb(): Database.Database {
-  if (!db) {
-    throw new Error('Database not initialized. Call initializeDatabase() first.');
-  }
-  return db;
+export function getDb() {
+  return pool;
 }
