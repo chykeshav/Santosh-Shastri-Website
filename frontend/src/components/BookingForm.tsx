@@ -73,7 +73,7 @@ function BookingForm() {
         </h2>
         <div className="om-divider" style={{ color: '#fbbf24' }}>ॐ</div>
         <p className="text-center text-white/70 mb-8 text-sm">
-          Fill in your details and we'll send a Jitsi video‑call link to your email.
+          Fill in your details to generate a video-call link and confirm your booking via WhatsApp.
         </p>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 bg-white/10 backdrop-blur-md rounded-2xl p-8 shadow-2xl border border-white/20">
