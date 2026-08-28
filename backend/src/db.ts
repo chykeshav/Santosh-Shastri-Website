@@ -35,6 +35,17 @@ export async function initializeDatabase(): Promise<void> {
         message TEXT NOT NULL,
         created_at VARCHAR(255) NOT NULL
       );
+
+      CREATE TABLE IF NOT EXISTS admin_users (
+        id SERIAL PRIMARY KEY,
+        username VARCHAR(100) NOT NULL UNIQUE,
+        password VARCHAR(255) NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+
+      INSERT INTO admin_users (username, password)
+      VALUES ('Santosh', 'Santosh@123')
+      ON CONFLICT (username) DO NOTHING;
     `);
 
     client.release();
