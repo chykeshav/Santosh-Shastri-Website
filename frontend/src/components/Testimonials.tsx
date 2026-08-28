@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const FALLBACK_BACKEND = 'https://santoshshastri-backend-production.up.railway.app';
+const FALLBACK_BACKEND = 'https://santosh-shastri-website.onrender.com';
 
 function resolveBackendUrl(): string {
   const raw = String(import.meta.env.VITE_BACKEND_URL ?? '').trim().replace(/\/+$/, '');
