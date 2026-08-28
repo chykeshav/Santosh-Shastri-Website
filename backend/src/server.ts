@@ -50,12 +50,9 @@ app.use('/api/admin', basicAuthMiddleware, adminRoutes);
 
 // --- STATIC FRONTEND SERVING ---
 import fs from 'fs';
-let frontendPath = path.join(__dirname, '../../frontend/dist'); // If running from backend/dist
+let frontendPath = path.join(__dirname, '../../frontend/dist');
 if (!fs.existsSync(frontendPath)) {
-  frontendPath = path.join(__dirname, '../frontend/dist'); // If running from backend directly or flattened
-}
-if (!fs.existsSync(frontendPath)) {
-  frontendPath = path.join(__dirname, '../frontend-dist'); // Docker environment
+  console.warn(`WARNING: Frontend dist not found at ${frontendPath}`);
 }
 
 app.use(express.static(frontendPath));
