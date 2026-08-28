@@ -50,9 +50,32 @@ app.use('/api/admin', basicAuthMiddleware, adminRoutes);
 
 // --- STATIC FRONTEND SERVING ---
 import fs from 'fs';
-let frontendPath = path.join(__dirname, '../../frontend/dist');
-if (!fs.existsSync(frontendPath)) {
-  console.warn(`WARNING: Frontend dist not found at ${frontendPath}`);
+
+let currentDir = __dirname;
+let frontendPath = '';
+
+// Traverse upwards to find frontend/dist or frontend-dist
+while (currentDir !== path.parse(currentDir).root) {
+  const try1 = path.join(currentDir, 'frontend', 'dist');
+  const try2 = path.join(currentDir, 'frontend-dist');
+  
+  if (fs.existsSync(try1)) {
+    frontendPath = try1;
+    break;
+  }
+  if (fs.existsSync(try2)) {
+    frontendPath = try2;
+    break;
+  }
+  currentDir = path.dirname(currentDir);
+}
+
+if (!frontendPath) {
+  console.warn("WARNING: Frontend dist not found anywhere in the directory tree! Looked starting from:", __dirname);
+  // Fallback so it doesn't crash, but it won't work
+  frontendPath = path.join(__dirname, '../../frontend/dist');
+} else {
+  console.log("Found frontend static files at:", frontendPath);
 }
 
 app.use(express.static(frontendPath));
