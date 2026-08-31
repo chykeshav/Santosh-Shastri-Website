@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 function resolveBackendUrl(): string {
-  return '';
+  const envUrl = (import.meta as any).env?.VITE_BACKEND_URL;
+  if (envUrl && typeof envUrl === 'string' && envUrl.trim()) {
+    return envUrl.trim().replace(/\/+$/, '');
+  }
+  return 'https://santosh-shastri-website.onrender.com';
 }
 
 interface Booking {

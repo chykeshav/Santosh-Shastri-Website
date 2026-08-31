@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function resolveBackendUrl(): string {
-  return '';
+  const envUrl = (import.meta as any).env?.VITE_BACKEND_URL;
+  if (envUrl && typeof envUrl === 'string' && envUrl.trim()) {
+    return envUrl.trim().replace(/\/+$/, '');
+  }
+  return 'https://santosh-shastri-website.onrender.com';
 }
 
 interface Feedback {
@@ -23,9 +27,14 @@ function Testimonials() {
     try {
       const backendUrl = resolveBackendUrl();
       const res = await axios.get(backendUrl + '/api/feedback');
-      setFeedbacks(res.data);
+      if (Array.isArray(res.data)) {
+        setFeedbacks(res.data);
+      } else {
+        setFeedbacks([]);
+      }
     } catch (err) {
       console.error('Failed to fetch feedback:', err);
+      setFeedbacks([]);
     }
   };
 
