@@ -25,7 +25,12 @@ function Footer() {
           <div className="md:col-span-1">
             <div className="text-3xl mb-2" style={{ color: '#D4AF37' }}>ॐ</div>
             <h3 className="text-xl font-bold mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>Santosh Shastri</h3>
-            <p className="text-white/60 text-sm leading-relaxed">Court Marriage &amp; Puja‑Paath Services<br/>Marriage Office, Bandra Family Court<br/>Mumbai, Maharashtra</p>
+            <p className="text-white/60 text-xs sm:text-sm leading-relaxed">
+              <span className="text-amber-300 font-medium block">Office Address:</span>
+              Marriage Office, Bandra Family Court, Anant Kanekar Marg, Bandra East, Mumbai - 400051<br/>
+              <span className="text-amber-300 font-medium block mt-2">Home Address:</span>
+              House No. 364, Kalyan Murbad Road, Near Sairaj Chawl, Mharalpada, Mharal Bk, Thane - 421301
+            </p>
             <p className="text-white/40 text-xs mt-2 font-medium tracking-wide">Mon – Sat, 10:00 AM – 5:00 PM</p>
           </div>
 

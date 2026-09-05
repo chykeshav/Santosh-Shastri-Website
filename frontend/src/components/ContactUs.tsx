@@ -27,14 +27,33 @@ function ContactUs() {
             </p>
 
             <div className="relative space-y-8 z-10">
-              {/* Location */}
+              {/* Office Location */}
               <div className="flex items-start gap-5">
                 <div className="w-12 h-12 flex-shrink-0 bg-gradient-to-br from-amber-500 to-maroon-600 rounded-full flex items-center justify-center shadow-lg shadow-amber-500/20">
-                  <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                  <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h4m-4 0V11m0 0h4m-4 0H7" /></svg>
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold mb-1 text-gray-200">Our Location</h3>
-                  <p className="text-gray-400 leading-relaxed">Marriage Office, Bandra Family Court,<br className="hidden sm:block" /> Mumbai, Maharashtra, India</p>
+                  <h3 className="text-xl font-semibold mb-1 text-gray-200">Office Address</h3>
+                  <p className="text-gray-400 leading-relaxed">
+                    Marriage Office, Bandra Family Court,<br className="hidden sm:block" />
+                    Anant Kanekar Marg, Bandra East,<br className="hidden sm:block" />
+                    Mumbai, Maharashtra - 400051, India
+                  </p>
+                </div>
+              </div>
+
+              {/* Home Location */}
+              <div className="flex items-start gap-5">
+                <div className="w-12 h-12 flex-shrink-0 bg-gradient-to-br from-amber-500 to-maroon-600 rounded-full flex items-center justify-center shadow-lg shadow-amber-500/20">
+                  <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold mb-1 text-gray-200">Home Address</h3>
+                  <p className="text-gray-400 leading-relaxed">
+                    House No. 364, Kalyan Murbad Road,<br className="hidden sm:block" />
+                    Near Sairaj Chawl, Mharalpada, Mharal Bk,<br className="hidden sm:block" />
+                    Thane, Maharashtra - 421301, India
+                  </p>
                 </div>
               </div>
 
@@ -79,8 +98,8 @@ function ContactUs() {
           {/* Right Map Area */}
           <div className="w-full md:w-1/2 bg-gray-900 relative min-h-[320px] md:min-h-0">
             <iframe
-              title="Marriage Office, Bandra Family Court, Mumbai — Map"
-              src="https://www.google.com/maps?q=Bandra+Family+Court,+Bandra,+Mumbai,+Maharashtra&output=embed"
+              title="Marriage Office, Bandra Family Court, Anant Kanekar Marg, Mumbai — Map"
+              src="https://www.google.com/maps?q=Marriage+Office+Bandra+Family+Court+Anant+Kanekar+Marg+Bandra+East+Mumbai+400051&output=embed"
               className="absolute inset-0 w-full h-full grayscale-[35%] contrast-125 opacity-90"
               style={{ border: 0 }}
               loading="lazy"
@@ -89,7 +108,7 @@ function ContactUs() {
             <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f0f] via-[#0f0f0f]/10 to-transparent pointer-events-none"></div>
             <div className="absolute bottom-6 left-6 right-6 md:bottom-10 md:left-10 md:right-10 flex flex-col sm:flex-row gap-3">
               <a
-                href="https://www.google.com/maps?q=Bandra+Family+Court,+Bandra,+Mumbai,+Maharashtra"
+                href="https://www.google.com/maps?q=Marriage+Office+Bandra+Family+Court+Anant+Kanekar+Marg+Bandra+East+Mumbai+400051"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 block text-center btn-3d-outline py-3.5 text-base"
